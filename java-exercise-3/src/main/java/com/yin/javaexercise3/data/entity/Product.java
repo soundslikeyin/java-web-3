@@ -1,23 +1,24 @@
 package com.yin.javaexercise3.data.entity;
 
 import javax.persistence.*;
+import java.util.List;
 
-@Entity
+@Entity(name="Product")
 @Table(name="Products")
 public class Product {
     @Id
     @GeneratedValue
-    // type integer vs long?
     private Integer id;
 
-    @Column(name="name")
     private String name;
 
-    @Column(name="description")
     private String description;
 
-    @Column(name="price")
     private Integer price;
+
+//    @OneToMany(fetch = FetchType.LAZY, mappedBy = "product")
+    @OneToMany(targetEntity=Sales.class, mappedBy="product", cascade=CascadeType.ALL, fetch = FetchType.LAZY)
+    private List<Sales> sales;
 
     public Integer getId(){
         return this.id;

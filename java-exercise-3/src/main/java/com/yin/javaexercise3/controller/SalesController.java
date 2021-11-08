@@ -7,7 +7,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 //import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 //import org.springframework.web.server.ResponseStatusException;
-
 import java.util.Optional;
 
 
@@ -16,6 +15,7 @@ import java.util.Optional;
 @RequestMapping("/sales")
 public class SalesController {
 
+//    Using Service
 //    @Autowired
 //    private SalesServiceImpl salesService;
 
@@ -24,6 +24,7 @@ public class SalesController {
 //        this.salesService = salesService;
 //    }
 
+//    Not using service
     @Autowired
     private final SalesRepository salesRepository;
 
@@ -54,8 +55,8 @@ public class SalesController {
 //            return null;
 //        }
 //        Sales saleToUpdate = saleToUpdateOptional.get();
-//        if (s.getHasFruit() != null) {
-//            saleToUpdate.setHasFruit(s.getHasFruit());
+//        if (s.getDescription() != null) {
+//            saleToUpdate.setDescription(s.getDescription());
 //        }
 //        if (s.getQuantity() != null) {
 //            saleToUpdate.setQuantity(s.getQuantity());

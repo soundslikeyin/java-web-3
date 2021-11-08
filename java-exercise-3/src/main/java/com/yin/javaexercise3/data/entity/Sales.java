@@ -2,24 +2,21 @@ package com.yin.javaexercise3.data.entity;
 
 import javax.persistence.*;
 
-@Entity
+@Entity(name="Sales")
 @Table(name="Sales")
 public class Sales {
     @Id
     @GeneratedValue
-    // type integer vs long?
     private Integer id;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "productId")
+//    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne()
+    @JoinColumn(name = "product_id", referencedColumnName = "id", insertable = false, updatable = false)
     private Product product;
 
-    @Column(name="description")
     private String description;
 
-    @Column(name="total")
     private Integer total;
-
 
     public Integer getId(){
         return this.id;
@@ -36,5 +33,7 @@ public class Sales {
     public Integer getTotal(){
         return this.total;
     }
+
+
 
 }
