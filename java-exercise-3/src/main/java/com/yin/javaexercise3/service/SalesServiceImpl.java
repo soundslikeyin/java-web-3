@@ -2,7 +2,6 @@ package com.yin.javaexercise3.service;
 
 import com.yin.javaexercise3.data.entity.Sales;
 import com.yin.javaexercise3.repository.SalesRepository;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
@@ -12,7 +11,6 @@ import java.util.Optional;
 @Service
 public class SalesServiceImpl implements SalesService{
 
-//    @Autowired
     private final SalesRepository salesRepository;
 
     public SalesServiceImpl(SalesRepository salesRepository) {
@@ -31,4 +29,14 @@ public class SalesServiceImpl implements SalesService{
 //        return sale.orElse(null);
     }
 
+    @Override
+    public Sales addSale(Sales sale){
+        Sales newSale = this.salesRepository.save(sale);
+        return newSale;
+    }
+
+    @Override
+    public Iterable<Sales> getAll(){
+        return this.salesRepository.findAll();
+    }
 }

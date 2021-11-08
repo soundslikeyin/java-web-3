@@ -1,13 +1,9 @@
 package com.yin.javaexercise3.controller;
 
-//import com.yin.javaexercise3.service.SalesServiceImpl;
+import com.yin.javaexercise3.service.SalesServiceImpl;
 import com.yin.javaexercise3.data.entity.Sales;
-import com.yin.javaexercise3.repository.SalesRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-//import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
-//import org.springframework.web.server.ResponseStatusException;
-import java.util.Optional;
 
 
 @CrossOrigin( "*" )
@@ -15,36 +11,26 @@ import java.util.Optional;
 @RequestMapping("/sales")
 public class SalesController {
 
-//    Using Service
-//    @Autowired
-//    private SalesServiceImpl salesService;
-
-//    public SalesController(@Autowired SalesServiceImpl salesService) {
-//    public SalesController(SalesServiceImpl salesService) {
-//        this.salesService = salesService;
-//    }
-
-//    Not using service
     @Autowired
-    private final SalesRepository salesRepository;
+    private SalesServiceImpl salesService;
 
-    public SalesController(final SalesRepository salesRepository) { // is the final here necessary?
-        this.salesRepository = salesRepository;
+    public SalesController(SalesServiceImpl salesService) {
+        this.salesService = salesService;
     }
 
     @GetMapping
     public Iterable<Sales> getAllSales() {
-        return this.salesRepository.findAll();
+        return this.salesService.getAll();
     }
 
     @GetMapping("/{id}")
-    public Optional<Sales> getSaleById(@PathVariable("id") String id) {
-        return this.salesRepository.findById(Integer.parseInt(id));
+    public Sales getSaleById(@PathVariable("id") String id) {
+        return this.salesService.getSale(Integer.parseInt(id));
     }
 
     @PostMapping()
     public Sales createNewSale(@RequestBody Sales sale) {
-        Sales newSale = this.salesRepository.save(sale);
+        Sales newSale = this.salesService.addSale(sale);
         return newSale;
     }
 
@@ -80,17 +66,6 @@ public class SalesController {
 //        Plant plantToDelete = plantToDeleteOptional.get();
 //        this.plantRepository.delete(plantToDelete);
 //        return plantToDelete;
-//    }
-
-//    public @ResponseBody Sales getSale(@PathVariable String id) {
-//        Optional<Sales> sale = this.salesRepository.findById(Integer.parseInt(id));
-
-//        if (!sale.isPresent()) {
-//            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "The ID does not exist.");
-//        }
-
-//        return sale.get();
-//        return salesService.getSale(Integer.parseInt(id)); // controller parses path variable into integer
 //    }
 
 }
